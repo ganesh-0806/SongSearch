@@ -1,0 +1,3 @@
+mongodb_name: 'Songcollection'
+host: '44.206.255.111'
+port: '27017'
