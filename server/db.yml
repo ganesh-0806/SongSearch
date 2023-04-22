@@ -1,3 +1,3 @@
-mongodb_name: 'Songcollection'
+mongodb_name: 'testdb'
 host: '44.206.255.111'
 port: '27017'
