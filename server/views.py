@@ -13,92 +13,87 @@ def home():
         #Interact with db and get details
         # jsonify the response
         abc = True
-
     response = '{response : 200}'
 
     return render_template('home.html')
     #return '<h1>hello</h1>'
 
-@views.route('/read-hardcoded', methods=['GET', 'POST'])
-def read_hardcoded():
+@views.route('/read/', methods=['GET', 'POST'])
+def read():
+    print('read called')
     if request.method == 'POST':
         #Interact with db and get details
         # jsonify the response
-        abc = True
+        song_id = request.form['view-value']
+        if not song_id:
+            return
+        collection = db.Songcollection
+        result = []
+        for val in collection.find({song_id}):
+            result.append(str(val))
+
+        return result
 
     response = '{response : 200}'
-    collection = db.Songcollection
-    result = []
-    for val in collection.find({"Title": "Pink World"}):
-       result.append(str(val))
 
-    return result
 
-@views.route('/create-hardcoded', methods=['GET', 'POST'])
-def create_hardcoded():
+@views.route('/create/', methods=['GET', 'POST'])
+def create():
+    print('create called')
     if request.method == 'POST':
         #Interact with db and get details
+        create_txt = request.form['create-value']
+        print(create_txt)
+        if not create_txt:
+            return
+        collection = db.Songcollection
+        collection.insert_one({create_txt})
+        result = []
+        for val in collection.find():
+            result.append(str(val))
+
+        return result
         # jsonify the response
         abc = True
-
     response = '{response : 200}'
-    collection = db.Songcollection
-    collection.insert_one({
-        "SongNumber": 10,
-        "SongID": "SOUDSGM12AC9618304",
-        "AlbumID": 692313,
-        "AlbumName": "Superinstrumental",
-        "ArtistID": "ARNTLGG11E2835DDB9",
-        "ArtistLatitude": "",
-        "ArtistLocation": "",
-        "ArtistLongitude": "",
-        "ArtistName": "Clp",
-        "Danceability": 0.0,
-        "Duration": 266.39628,
-        "KeySignature": 7,
-        "KeySignatureConfidence": 0.053,
-        "Tempo": 114.041,
-        "TimeSignature": 4,
-        "TimeSignatureConfidence": 0.878,
-        "Title": "Insatiable (Instrumental Version)",
-        "Year": 0
-    })
-    result = []
-    for val in collection.find():
-       result.append(str(val))
 
-    return result
 
-@views.route('/update-hardcoded', methods=['GET', 'POST'])
-def update_hardcoded():
+@views.route('/update/', methods=['GET', 'POST'])
+def update():
+    print('update called')
     if request.method == 'POST':
         #Interact with db and get details
-        # jsonify the response
-        abc = True
+        upd_id = request.form['update-id-value']
+        upd_text = request.form['update-text-value']
+        if not upd_id or not upd_text:
+            return
 
+        collection = db.Songcollection
+        collection.update_one({"SongID": upd_id}, {"$set": upd_text})
+        result = []
+        for val in collection.find():
+            result.append(str(val))
+
+        return result
     response = '{response : 200}'
 
-    collection = db.Songcollection
-    collection.update_one({"SongID":"SOHKNRJ12A6701D1F8"}, {"$set" : {'Year': 1995}})
-    result = []
-    for val in collection.find():
-        result.append(str(val))
 
-    return result
 
-@views.route('/delete-hardcoded', methods=['GET', 'POST'])
-def delete_hardcoded():
+@views.route('/delete/', methods=['GET', 'POST'])
+def delete():
+    print("delete called")
     if request.method == 'POST':
+        del_id = request.form['delete-value']
         #Interact with db and get details
         # jsonify the response
-        abc = True
+        if not del_id:
+            return
+        collection = db.Songcollection
+        collection.delete_one({"SongID": del_id})
+        result = []
+        for val in collection.find():
+            result.append(str(val))
+
+        return result
 
     response = '{response : 200}'
-
-    collection = db.Songcollection
-    collection.delete_one({"SongID": "SONHOTT12A8C13493C"})
-    result = []
-    for val in collection.find():
-        result.append(str(val))
-
-    return result
