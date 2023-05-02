@@ -34,7 +34,7 @@
         <form action="/read" method="post">
             <label for="view-song-id">Enter Song Attribute and Value to Query:</label>
             </br>
-            <input type="text" id="view-song-id"/>
+            <input type="text" id="view-song-id" name="view-value"/>
             </br>
             <button type=submit id="view-button" onclick="read()">View</button>
         </form>
@@ -44,7 +44,7 @@
             <form action="/create" method="post">
             <label for="create-text-area">Enter Song Data here in proper format:</label>
             </br>
-            <textarea id="create-text-area" name="create-text-area"></textarea>
+            <textarea id="create-text-area" name="create-value"></textarea>
             </br>
             <button type=submit id="create-button">Create</button>
         </form>
@@ -55,11 +55,11 @@
         <form action="/update" method="post">
             <label for="update-song-id">Enter Song ID to Update:</label>
             </br>
-            <input type="text" id="update-song-id"/>
+            <input type="text" id="update-song-id" name="update-id-value"/>
             </br>
             <label for="update-text-area">Enter fields and new values in pairs:</label>
             </br>
-            <textarea id="update-text-area"></textarea>
+            <textarea id="update-text-area" name="update-text-value"></textarea>
             </br>
             <button type=submit id="update-button">Update</button>
         </form>
@@ -70,7 +70,7 @@
         <form action="/delete" method="post">
             <label for="delete-song-id">Enter Song ID to Delete:</label>
             </br>
-            <input type="text" id="delete-song-id"/>
+            <input type="text" id="delete-song-id" name="delete-value"/>
             </br>
             <button type=submit id="delete-button">Delete</button>
         </form>
