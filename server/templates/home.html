@@ -1,48 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Reference: https://websitesetup.org/wp-content/uploads/2014/09/html5-cheat-sheet.png -->
+<!-- Reference: https://websitesetup.org/wp-content/uploads/2014/09/html5-cheat-sheet.png
+ https://thewebdev.info/2022/04/02/how-to-call-a-python-flask-function-on-button-click-event/-->
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
     <h1>SITE ADMIN CRUD PAGE</h1>
+    <h2>FORMATS</h2>
+    <p>View: "Attibute": "Value"</p>
+    <p>Create: "SongNumber": 10,
+        "SongID": "SOUDSGM12AC9618304",
+        "AlbumID": 692313,
+        "AlbumName": "Superinstrumental",
+        "ArtistID": "ARNTLGG11E2835DDB9",
+        "ArtistLatitude": "",
+        "ArtistLocation": "",
+        "ArtistLongitude": "",
+        "ArtistName": "Clp",
+        "Danceability": 0.0,
+        "Duration": 266.39628,
+        "KeySignature": 7,
+        "KeySignatureConfidence": 0.053,
+        "Tempo": 114.041,
+        "TimeSignature": 4,
+        "TimeSignatureConfidence": 0.878,
+        "Title": "Insatiable (Instrumental Version)",
+        "Year": 0</p>
+    <p>Update: "Attribute": NewValue</p>
+    <p>Delete: "SongID"</p>
     <div id="view">
-        <label for="view-song-id">Enter Song ID to View:</label>
-        </br>
-        <input type="text" id="view-song-id"/>
-        </br>
-        <button type=submit id="view-button">View</button>
+        <form action="/read" method="post">
+            <label for="view-song-id">Enter Song Attribute and Value to Query:</label>
+            </br>
+            <input type="text" id="view-song-id"/>
+            </br>
+            <button type=submit id="view-button" onclick="read()">View</button>
+        </form>
     </div>
     </br>
     <div id="create">
-        <label for="create-text-area">Enter Song Data here in CSV format:</label>
-        </br>
-        <textarea id="create-text-area"></textarea>
-        </br>
-        <button type=submit id="create-button">Create</button>
+            <form action="/create" method="post">
+            <label for="create-text-area">Enter Song Data here in proper format:</label>
+            </br>
+            <textarea id="create-text-area" name="create-text-area"></textarea>
+            </br>
+            <button type=submit id="create-button">Create</button>
+        </form>
     </div>
     </br>
     </br>
     <div id="update">
-        <label for="update-song-id">Enter Song ID to Update:</label>
-        </br>
-        <input type="text" id="update-song-id"/>
-        </br>
-        <label for="update-text-area">Enter fields and new values in pairs:</label>
-        </br>
-        <textarea id="update-text-area"></textarea>
-        </br>
-        <button type=submit id="update-button">Update</button>
+        <form action="/update" method="post">
+            <label for="update-song-id">Enter Song ID to Update:</label>
+            </br>
+            <input type="text" id="update-song-id"/>
+            </br>
+            <label for="update-text-area">Enter fields and new values in pairs:</label>
+            </br>
+            <textarea id="update-text-area"></textarea>
+            </br>
+            <button type=submit id="update-button">Update</button>
+        </form>
     </div>
     </br>
     </br>
     <div id="delete">
-        <label for="delete-song-id">Enter Song ID to Delete:</label>
-        </br>
-        <input type="text" id="delete-song-id"/>
-        </br>
-        <button type=submit id="delete-button">Delete</button>
+        <form action="/delete" method="post">
+            <label for="delete-song-id">Enter Song ID to Delete:</label>
+            </br>
+            <input type="text" id="delete-song-id"/>
+            </br>
+            <button type=submit id="delete-button">Delete</button>
+        </form>
     </div>
 </body>
 </html>
