@@ -18,18 +18,71 @@ def home():
     return render_template('home.html')
     #return '<h1>hello</h1>'
 
-@views.route('/read/', methods=['GET', 'POST'])
-def read():
-    print('read called')
+@views.route('/readbyartist/', methods=['GET', 'POST'])
+def read_by_artist():
+    print('read called artist')
     if request.method == 'POST':
         #Interact with db and get details
         # jsonify the response
-        song_id = request.form['view-value']
-        if not song_id:
+        song_artist = request.form['view-value-artist']
+        if not song_artist:
             return
         collection = db.Songcollection
         result = []
-        for val in collection.find({song_id}):
+        for val in collection.find({"ArtistName": song_artist}):
+            result.append(str(val))
+
+        return result
+
+    response = '{response : 200}'
+
+@views.route('/readbyname/', methods=['GET', 'POST'])
+def read_by_name():
+    print('read called name')
+    if request.method == 'POST':
+        #Interact with db and get details
+        # jsonify the response
+        song_name = request.form['view-value-name']
+        if not song_name:
+            return
+        collection = db.Songcollection
+        result = []
+        for val in collection.find({"Title": song_name}):
+            result.append(str(val))
+
+        return result
+
+    response = '{response : 200}'
+
+@views.route('/readbyyear/', methods=['GET', 'POST'])
+def read_by_year():
+    print('read called year')
+    if request.method == 'POST':
+        #Interact with db and get details
+        # jsonify the response
+        song_year = request.form['view-value-year']
+        if not song_year:
+            return
+        collection = db.Songcollection
+        result = []
+        for val in collection.find({"Year": song_year}):
+            result.append(str(val))
+
+        return result
+
+    response = '{response : 200}'
+@views.route('/readbydance/', methods=['GET', 'POST'])
+def read_by_danceability():
+    print('read called dance')
+    if request.method == 'POST':
+        #Interact with db and get details
+        # jsonify the response
+        song_dance = request.form['view-value-dance']
+        if not song_dance:
+            return
+        collection = db.Songcollection
+        result = []
+        for val in collection.find({"Danceability": song_dance}):
             result.append(str(val))
 
         return result
@@ -54,7 +107,7 @@ def create():
 
         return result
         # jsonify the response
-        abc = True
+
     response = '{response : 200}'
 
 

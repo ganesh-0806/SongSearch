@@ -8,35 +8,37 @@
 </head>
 <body>
     <h1>SITE ADMIN CRUD PAGE</h1>
-    <h2>FORMATS</h2>
-    <p>View: "Attibute": "Value"</p>
-    <p>Create: "SongNumber": 10,
-        "SongID": "SOUDSGM12AC9618304",
-        "AlbumID": 692313,
-        "AlbumName": "Superinstrumental",
-        "ArtistID": "ARNTLGG11E2835DDB9",
-        "ArtistLatitude": "",
-        "ArtistLocation": "",
-        "ArtistLongitude": "",
-        "ArtistName": "Clp",
-        "Danceability": 0.0,
-        "Duration": 266.39628,
-        "KeySignature": 7,
-        "KeySignatureConfidence": 0.053,
-        "Tempo": 114.041,
-        "TimeSignature": 4,
-        "TimeSignatureConfidence": 0.878,
-        "Title": "Insatiable (Instrumental Version)",
-        "Year": 0</p>
-    <p>Update: "Attribute": NewValue</p>
-    <p>Delete: "SongID"</p>
     <div id="view">
-        <form action="/read" method="post">
-            <label for="view-song-id">Enter Song Attribute and Value to Query:</label>
+        <form action="/readbyartist" method="post">
+            <label for="view-song-artist">Enter Artist:</label>
             </br>
-            <input type="text" id="view-song-id" name="view-value"/>
+            <input type="text" id="view-song-artist" name="view-value-artist"/>
             </br>
-            <button type=submit id="view-button" onclick="read()">View</button>
+            <button type=submit id="view-button-artist">Search By Artist</button>
+        </form>
+        </br>
+        <form action="/readbyname" method="post">
+            <label for="view-song-name">Enter Name:</label>
+            </br>
+            <input type="text" id="view-song-name" name="view-value-name"/>
+            </br>
+            <button type=submit id="view-button-name">Search By Name</button>
+        </form>
+        </br>
+        <form action="/readbyyear" method="post">
+            <label for="view-song-year">Enter Year:</label>
+            </br>
+            <input type="text" id="view-song-year" name="view-value-year"/>
+            </br>
+            <button type=submit id="view-button-year">Search By Year</button>
+        </form>
+        </br>
+        <form action="/readbydance" method="post">
+            <label for="view-song-dance">Enter Danceability:</label>
+            </br>
+            <input type="text" id="view-song-dance" name="view-value-dance"/>
+            </br>
+            <button type=submit id="view-button-dance">Search By Danceability</button>
         </form>
     </div>
     </br>
