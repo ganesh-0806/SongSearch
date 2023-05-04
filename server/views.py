@@ -65,7 +65,7 @@ def read_by_year():
             return
         collection = db.Songcollection
         result = []
-        for val in collection.find({"Year": song_year}):
+        for val in collection.find({"Year": int(song_year)}):
             result.append(str(val))
 
         return result
@@ -82,7 +82,7 @@ def read_by_danceability():
             return
         collection = db.Songcollection
         result = []
-        for val in collection.find({"Danceability": song_dance}):
+        for val in collection.find({"Danceability": float(song_dance)}):
             result.append(str(val))
 
         return result
