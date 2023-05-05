@@ -8,7 +8,7 @@ playlist = Blueprint('playlist', __name__)
 def dashboard():
     return render_template('playlist.html')
 
-@playlist.route('/playlist/addSong', methods=['POST'])
+@playlist.route('/playlist/addSong/', methods=['POST'])
 def addSong():
     if request.method == 'POST':
         # Get the data from the form
@@ -27,6 +27,7 @@ def addSong():
             userCollection.update_one({'username': username}, {'$push': {'SongIDs': songID}})
         else:
             return jsonify({'message': 'Song not found'}), 404
+    return redirect(url_for('playlist.dashboard'))
 
 @playlist.route('/playlist/deleteSong/', methods=['POST'])
 def deleteSong():
@@ -48,6 +49,7 @@ def deleteSong():
             
         else:
             return jsonify({'message': 'Song not found'}), 404
+    return redirect(url_for('playlist.dashboard'))
         
 @playlist.route('/playlist/deleteAll/', methods=['POST'])
 def deleteAll():
@@ -64,6 +66,7 @@ def deleteAll():
         )
 
         return jsonify({'message': 'Songs Deletion successful'}), 200
+    return redirect(url_for('playlist.dashboard'))
     
 @playlist.route('/playlist/getSongs/', methods=['POST'])
 def getSongs():
@@ -76,5 +79,11 @@ def getSongs():
 
         user_document = userCollection.find_one({'username': username})
         song_ids = user_document.get('SongIDs', [])
-        songs = songsCollection.find({'SongID': {'$in': song_ids}})
-        return list(songs)
+        search_ids = []
+        for search in song_ids:
+            search_ids.append(search)
+        songs = songsCollection.find({'SongID': {'$in': search_ids}})
+        res = []
+        for song in songs:
+            res.append(str(song))
+        return res

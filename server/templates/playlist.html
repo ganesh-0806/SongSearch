@@ -5,10 +5,45 @@
     <title>Playlist</title>
 </head>
 <body>
+  <h1>Search Songs</h1>
+  <div id="view">
+        <form action="/readbyartist" method="post">
+            <label for="view-song-artist">Enter Artist:</label>
+            </br>
+            <input type="text" id="view-song-artist" name="view-value-artist"/>
+            </br>
+            <button type=submit id="view-button-artist">Search By Artist</button>
+        </form>
+        </br>
+        <form action="/readbyname" method="post">
+            <label for="view-song-name">Enter Name:</label>
+            </br>
+            <input type="text" id="view-song-name" name="view-value-name"/>
+            </br>
+            <button type=submit id="view-button-name">Search By Name</button>
+        </form>
+        </br>
+        <form action="/readbyyear" method="post">
+            <label for="view-song-year">Enter Year:</label>
+            </br>
+            <input type="text" id="view-song-year" name="view-value-year"/>
+            </br>
+            <button type=submit id="view-button-year">Search By Year</button>
+        </form>
+        </br>
+        <form action="/readbydance" method="post">
+            <label for="view-song-dance">Enter Danceability:</label>
+            </br>
+            <input type="text" id="view-song-dance" name="view-value-dance"/>
+            </br>
+            <button type=submit id="view-button-dance">Search By Danceability</button>
+        </form>
+    </div>
+  </br>
   <h1>Playlist Builder</h1>
   <div id="add">
     <h2>Add Song</h2>
-    <form action="/addSong/" method="post">
+    <form action="/playlist/addSong/" method="post">
       <label for="add-song">Song ID:</label>
       <input type="text" id="add-song" name="add-song-value"/>
       <button type=submit id="add-song-button">Add Song</button>
@@ -17,7 +52,7 @@
   </br>
   <div id="delete">
     <h2>Delete Song</h2>
-    <form action="/deleteSong/" method="post">
+    <form action="/playlist/deleteSong/" method="post">
       <label for="delete-song">Song ID:</label>
       <input type="text" id="delete-song" name="delete-song-value"/>
       <button type=submit id="delete-song-button">Delete Song</button>
@@ -25,13 +60,13 @@
   </div>
   <div id="delete-all">
     <h2>Delete All Songs</h2>
-    <form action="/deleteAll/" method="post">
+    <form action="/playlist/deleteAll/" method="post">
       <button type=submit id="delete-all-button">Delete All Songs</button>
     </form>
   </div>
   <div id="get-all">
     <h2>Get All Songs</h2>
-    <form action="/getSongs/" method="post">
+    <form action="/playlist/getSongs/" method="post">
       <button type=submit id="get-all-button">Get All Songs</button>
     </form>
   </div>
