@@ -120,22 +120,25 @@ def update():
     print('update called')
     if request.method == 'POST':
         #Interact with db and get details
-        upd_id = request.form['update-id-value']
-        upd_text = request.form['update-text-value']
-        if not upd_id or not upd_text:
+        upd_id = str(request.form['update-id-value'])
+        upd_name = str(request.form['update-song-name-value'])
+        upd_art = str(request.form['update-song-artist-value'])
+        upd_year = int(request.form['update-song-year-value'])
+        upd_dance = float(request.form['update-song-dance-value'])
+        if not upd_id or not upd_name or not upd_art or not upd_year or not upd_dance:
             return
 
         collection = db.Songcollection
-        args = upd_text.split(':')
-        collection.update_one({"SongID": upd_id}, {"$set": {args[0].strip() : args[1].strip()}})
-        result = []
-        for val in collection.find():
-            result.append(str(val))
-
-        return result
+        if upd_name:
+            collection.update_one({"SongID": upd_id}, {"$set": {"Title" : upd_name}})
+        if upd_art:
+            collection.update_one({"SongID": upd_id}, {"$set": {"ArtistName": upd_art}})
+        if upd_year:
+            collection.update_one({"SongID": upd_id}, {"$set": {"Year": upd_year}})
+        if upd_dance:
+            collection.update_one({"SongID": upd_id}, {"$set": {"Danceability": upd_dance}})
+        return redirect(url_for('views.home'))
     response = '{response : 200}'
-
-
 
 @views.route('/delete/', methods=['GET', 'POST'])
 def delete():
