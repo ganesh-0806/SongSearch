@@ -160,23 +160,23 @@ def update():
     print('update called')
     if request.method == 'POST':
         #Interact with db and get details
-        upd_id = str(request.form['update-id-value'])
-        upd_name = str(request.form['update-song-name-value'])
-        upd_art = str(request.form['update-song-artist-value'])
-        upd_year = int(request.form['update-song-year-value'])
-        upd_dance = float(request.form['update-song-dance-value'])
-        if not upd_id or not upd_name or not upd_art or not upd_year or not upd_dance:
+        upd_id = request.form['update-id-value']
+        upd_name = request.form['update-song-name-value']
+        upd_art = request.form['update-song-artist-value']
+        upd_year = request.form['update-song-year-value']
+        upd_dance = request.form['update-song-dance-value']
+        if not upd_id or (not upd_name and not upd_art and upd_year and upd_dance):
             return
 
         collection = db.Songcollection
         if upd_name:
-            collection.update_one({"SongID": upd_id}, {"$set": {"Title" : upd_name}})
+            collection.update_one({"SongID": str(upd_id)}, {"$set": {"Title" : str(upd_name)}})
         if upd_art:
-            collection.update_one({"SongID": upd_id}, {"$set": {"ArtistName": upd_art}})
+            collection.update_one({"SongID": str(upd_id)}, {"$set": {"ArtistName": str(upd_art)}})
         if upd_year:
-            collection.update_one({"SongID": upd_id}, {"$set": {"Year": upd_year}})
+            collection.update_one({"SongID": str(upd_id)}, {"$set": {"Year": int(upd_year)}})
         if upd_dance:
-            collection.update_one({"SongID": upd_id}, {"$set": {"Danceability": upd_dance}})
+            collection.update_one({"SongID": str(upd_id)}, {"$set": {"Danceability": float(upd_dance)}})
         return redirect(url_for('views.home'))
     response = '{response : 200}'
 
