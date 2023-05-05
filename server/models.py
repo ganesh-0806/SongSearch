@@ -3,18 +3,16 @@ class User:
         self._username = username
         self._password = password
 
-    @property
-    def username(self):
+    def getusername(self):
         return self._username
 
-    @username.setter
-    def username(self, value):
+    def setusername(self, value):
         self._username = value
 
-    @property
-    def password(self):
+    def getpassword(self):
         return self._password
 
-    @password.setter
-    def password(self, value):
+    def setpassword(self, value):
         self._password = value
+
+user = User()

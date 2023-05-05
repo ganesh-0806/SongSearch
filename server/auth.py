@@ -1,6 +1,7 @@
 from flask import Blueprint,redirect, render_template, request, url_for, jsonify
 from . import db
-from . import user
+from .models import user
+from .playlist import dashboard
 
 auth = Blueprint('auth', __name__)
 
@@ -8,7 +9,7 @@ auth = Blueprint('auth', __name__)
 def landing():
     return render_template('login.html')
 
-@auth.route('/login', methods=['GET','POST'])
+@auth.route('/login/', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         # Get the data from the form
@@ -19,14 +20,15 @@ def login():
         userRecord = userCollection.find_one({'username': username})
         if userRecord is None:
             return jsonify({'message': 'User not found'}), 404
-        elif password != userRecord.password:
+        elif password != userRecord["password"]:
             return jsonify({'message': 'Wrong password'}), 404
         else:
-            user.username(username)
-            user.password(password)
-            redirect(url_for('playlist'))
+            user.setusername(username)
+            user.setpassword(password)
+            return redirect(url_for('playlist.dashboard'))
+            
 
-@auth.route('/register', methods=['GET','POST'])
+@auth.route('/register/', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
         # Get the data from the form
@@ -37,15 +39,14 @@ def register():
         userRecord = userCollection.find_one({'username': username})
         if userRecord is None:
             userCollection.insert_one({'username': username, 'password': password, 'SongIDs':[]})
-            user.username(username)
-            user.password(password)
-            redirect(url_for('playlist'))
+            user.setusername(username)
+            user.setpassword(password)
+            return redirect(url_for('playlist.dashboard'))
         else:
             return jsonify({'message': 'User already exists'}), 404
         
-@auth.route('/logout', methods=['GET'])
+@auth.route('/logout/', methods=['GET'])
 def logout():
-    user.username(None)
-    user.password(None)
-    redirect(url_for('landing'))
-    return jsonify({'message': 'User logout successful'})
+    user.setusername(None)
+    user.setpassword(None)
+    return redirect(url_for('landing'))

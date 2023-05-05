@@ -1,10 +1,10 @@
 from flask import Blueprint,redirect, render_template, request, url_for, jsonify
 from . import db
-from . import user
+from .models import user
 
 playlist = Blueprint('playlist', __name__)
 
-@playlist.route('/playlist', methods=['GET','POST'])
+@playlist.route('/playlist/', methods=['GET','POST'])
 def dashboard():
     return render_template('playlist.html')
 
@@ -12,7 +12,7 @@ def dashboard():
 def addSong():
     if request.method == 'POST':
         # Get the data from the form
-        username = user.username
+        username = user.getusername()
         songID = request.form['add-song-value']
 
         userCollection = db.Userscollection
@@ -28,11 +28,11 @@ def addSong():
         else:
             return jsonify({'message': 'Song not found'}), 404
 
-@playlist.route('/playlist/deleteSong', methods=['POST'])
+@playlist.route('/playlist/deleteSong/', methods=['POST'])
 def deleteSong():
     if request.method == 'POST':
         # Get the data from the form
-        username = user.username
+        username = user.getusername()
         songID = request.form['delete-song-value']
 
         userCollection = db.Userscollection
@@ -49,11 +49,11 @@ def deleteSong():
         else:
             return jsonify({'message': 'Song not found'}), 404
         
-@playlist.route('/playlist/deleteAll', methods=['POST'])
+@playlist.route('/playlist/deleteAll/', methods=['POST'])
 def deleteAll():
     if request.method == 'POST':
         # Get the data from the form
-        username = user.username
+        username = user.getusername()
 
         userCollection = db.Userscollection
 
@@ -65,11 +65,11 @@ def deleteAll():
 
         return jsonify({'message': 'Songs Deletion successful'}), 200
     
-@playlist.route('/playlist/getSongs', methods=['POST'])
+@playlist.route('/playlist/getSongs/', methods=['POST'])
 def getSongs():
     if request.method == 'POST':
         # Get the data from the form
-        username = user.username
+        username = user.getusername()
 
         userCollection = db.Userscollection
         songsCollection = db.Songcollection
