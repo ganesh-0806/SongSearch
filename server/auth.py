@@ -1,7 +1,8 @@
-from flask import Blueprint,redirect, render_template, request, url_for, jsonify
+from flask import Blueprint,redirect, render_template, request, url_for, jsonify, session
 from . import db
 from .models import user
 from .playlist import dashboard
+
 
 auth = Blueprint('auth', __name__)
 
@@ -23,6 +24,7 @@ def login():
         elif password != userRecord["password"]:
             return jsonify({'message': 'Wrong password'}), 404
         else:
+            session['username'] = username
             user.setusername(username)
             user.setpassword(password)
             return redirect(url_for('playlist.dashboard'))

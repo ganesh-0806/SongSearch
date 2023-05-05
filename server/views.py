@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for
 from . import db
 import json
+from .models import user
 
 views = Blueprint('views', __name__)
 
@@ -15,6 +16,9 @@ def home():
         abc = True
     response = '{response : 200}'
 
+    username = user.getusername()
+    if username == None:
+        return redirect(url_for('auth.landing'))
     return render_template('home.html')
     #return '<h1>hello</h1>'
 

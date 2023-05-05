@@ -6,7 +6,10 @@ playlist = Blueprint('playlist', __name__)
 
 @playlist.route('/playlist/', methods=['GET','POST'])
 def dashboard():
-    return render_template('playlist.html')
+    username = user.getusername()
+    if username == None:
+        return redirect(url_for('auth.landing'))
+    return render_template('playlist.html', username=username)
 
 @playlist.route('/playlist/addSong/', methods=['POST'])
 def addSong():

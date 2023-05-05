@@ -11,6 +11,7 @@ db = client.testdb
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = 'my_secret_key'
 
     from .views import views
     from .playlist import playlist
