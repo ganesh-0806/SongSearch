@@ -122,7 +122,8 @@ def update():
             return
 
         collection = db.Songcollection
-        collection.update_one({"SongID": upd_id}, {"$set": upd_text})
+        args = upd_text.split(':')
+        collection.update_one({"SongID": upd_id}, {"$set": {args[0].strip() : args[1].strip()}})
         result = []
         for val in collection.find():
             result.append(str(val))
