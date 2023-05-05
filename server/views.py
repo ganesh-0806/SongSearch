@@ -58,6 +58,25 @@ def read_by_name():
 
     response = '{response : 200}'
 
+@views.route('/readbylocation/', methods=['GET', 'POST'])
+def read_by_artist_location():
+    if request.method == 'POST':
+        #Interact with db and get details
+        # jsonify the response
+        artist_location = request.form['view-value-location']
+        if not artist_location:
+            return
+        collection = db.Songcollection
+        regex = '.*' + artist_location + '.*'
+        result = []
+        for val in collection.find({"ArtistLocation": {'$regex': regex}}):
+            result.append(str(val))
+
+        return result
+
+    response = '{response : 200}'
+
+
 @views.route('/readbyyear/', methods=['GET', 'POST'])
 def read_by_year():
     print('read called year')
@@ -75,6 +94,27 @@ def read_by_year():
         return result
 
     response = '{response : 200}'
+
+@views.route('/readbyyearrange/', methods=['GET', 'POST'])
+def read_by_year_range():
+    if request.method == 'POST':
+        #Interact with db and get details
+        # jsonify the response
+        song_year_from = request.form['view-value-year-from']
+        song_year_to = request.form['view-value-year-to']
+        if not song_year_from or not song_year_to:
+            return
+        collection = db.Songcollection
+        result = []
+        for val in collection.find({"Year": {'$gte': int(song_year_from), '$lte': int(song_year_to)}}):
+            result.append(str(val))
+
+        return result
+
+    response = '{response : 200}'
+
+
+
 @views.route('/readbydance/', methods=['GET', 'POST'])
 def read_by_danceability():
     print('read called dance')

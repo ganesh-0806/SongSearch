@@ -23,6 +23,14 @@
                 <button type="submit" id="view-button-name">Search By Name</button>
             </form>
             </br>
+            <form action="/readbylocation" method="post">
+                <label for="view-artist-location">Enter Artist Location:</label>
+                </br>
+                <input type="text" id="view-artist-location" name="view-value-location">
+                </br>
+                <button type="submit" id="view-button-artist-location">Search By Artist Location</button>
+            </form>
+            </br>
             <form action="/readbyyear" method="post">
                 <label for="view-song-year">Enter Year:</label>
                 </br>
@@ -37,6 +45,18 @@
                 <input type="text" id="view-song-dance" name="view-value-dance">
                 </br>
                 <button type="submit" id="view-button-dance">Search By Danceability</button>
+            </form>
+            </br>
+            <form action="/readbyyearrange" method="post">
+                <label for="view-song-year-from">Enter From Year:</label>
+                </br>
+                <input type="text" id="view-song-year-from" name="view-value-year-from">
+                </br>
+                <label for="view-song-year-to">Enter To Year:</label>
+                </br>
+                <input type="text" id="view-song-year-to" name="view-value-year-to">
+                </br>
+                <button type="submit" id="view-button-year-range">Search By Year Range</button>
             </form>
         </div>
         </br>
