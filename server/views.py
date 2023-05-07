@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from . import db
 import json
 from .models import user
@@ -144,15 +144,16 @@ def create():
         if not create_txt:
             return
         collection = db.Songcollection
-        collection.insert_one({create_txt})
-        result = []
-        for val in collection.find():
-            result.append(str(val))
+        print(create_txt)
+        collection.insert_one(json.loads(create_txt))
+        # result = []
+        # for val in collection.find():
+        #     result.append(str(val))
 
-        return result
+        # return result
         # jsonify the response
 
-    response = '{response : 200}'
+    return jsonify({'message': 'Song succesfully created'}), 201
 
 
 @views.route('/update/', methods=['GET', 'POST'])
@@ -191,10 +192,10 @@ def delete():
             return
         collection = db.Songcollection
         collection.delete_one({"SongID": del_id})
-        result = []
-        for val in collection.find():
-            result.append(str(val))
+        # result = []
+        # for val in collection.find():
+        #     result.append(str(val))
 
-        return result
+        # return result
 
-    response = '{response : 200}'
+    return jsonify({'message': 'Song succesfully deleted'}), 202
